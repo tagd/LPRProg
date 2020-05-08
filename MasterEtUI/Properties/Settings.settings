@@ -1,0 +1,30 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="MasterEtUI.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="dyslBackground" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">SeaShell</Value>
+    </Setting>
+    <Setting Name="nonDysBack" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Gray</Value>
+    </Setting>
+    <Setting Name="SelectedBackground" Type="System.String" Scope="User">
+      <Value Profile="(Default)">nonDysBack</Value>
+    </Setting>
+    <Setting Name="nonDysFont" Type="System.Drawing.Font" Scope="User">
+      <Value Profile="(Default)">Microsoft Sans Serif, 8.25pt</Value>
+    </Setting>
+    <Setting Name="dyslFont" Type="System.Drawing.Font" Scope="User">
+      <Value Profile="(Default)">Microsoft Sans Serif, 14.25pt</Value>
+    </Setting>
+    <Setting Name="SelectedFont" Type="System.String" Scope="User">
+      <Value Profile="(Default)">nonDysFont</Value>
+    </Setting>
+    <Setting Name="SQLConnectionStr" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\A-ComSci\coursework\LPRProg\V5\MasterEtUI\PlateRecognitionDatabase.mdf;Integrated Security=True</Value>
+    </Setting>
+    <Setting Name="ProjectPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D:\A-ComSci\coursework\LPRProg\V5\</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

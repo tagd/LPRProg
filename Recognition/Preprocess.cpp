@@ -17,21 +17,6 @@ void preprocess(cv::Mat &imgOriginal, cv::Mat &imgGrayscale, cv::Mat &imgThresh)
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-cv::Mat extractValue(cv::Mat &imgOriginal) {
-	cv::Mat imgHSV;
-	std::vector<cv::Mat> vectorOfHSVImages;
-	cv::Mat imgValue;
-
-	cv::cvtColor(imgOriginal, imgHSV, CV_BGR2HSV);
-
-	cv::split(imgHSV, vectorOfHSVImages);
-
-	imgValue = vectorOfHSVImages[2];
-
-	return(imgValue);
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
 cv::Mat maximizeContrast(cv::Mat &imgGrayscale) {
 	cv::Mat imgTopHat;
 	cv::Mat imgBlackHat;
@@ -47,6 +32,21 @@ cv::Mat maximizeContrast(cv::Mat &imgGrayscale) {
 	imgGrayscalePlusTopHatMinusBlackHat = imgGrayscalePlusTopHat - imgBlackHat;
 
 	return(imgGrayscalePlusTopHatMinusBlackHat);
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+cv::Mat extractValue(cv::Mat &imgOriginal) {
+	cv::Mat imgHSV;
+	std::vector<cv::Mat> vectorOfHSVImages;
+	cv::Mat imgValue;
+
+	cv::cvtColor(imgOriginal, imgHSV, CV_BGR2HSV);
+
+	cv::split(imgHSV, vectorOfHSVImages);
+
+	imgValue = vectorOfHSVImages[2];
+
+	return(imgValue);
 }
 
 

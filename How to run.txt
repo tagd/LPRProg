@@ -1,0 +1,12 @@
+Download OpenCV 3.x.x.
+Set all project paths and libarys and include directorys
+make the project x64
+
+Download: https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk
+Install boost and do the same
+use the bat file to setup boost
+fix filepaths to exe's launched from c# filepaths for text files used for storing data
+-fix databases
+use:
+Application.StartupPath + "//PatAddSys.mdf";
+
