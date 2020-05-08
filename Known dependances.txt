@@ -1,0 +1,2 @@
+Visual studio 2017+
+c++ 17 or higher(otherwise use the boost::filesystem library where mentioned)
