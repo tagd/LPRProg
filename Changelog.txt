@@ -1,0 +1,2 @@
+Centralised filepaths
+removed some excess commenting and unnessicary features

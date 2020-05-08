@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PlateRecognitionDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CarParkTrack">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="CarOwnerID" Type="int" />
+          <Property Name="EntryEntryNum" Type="int" />
+          <Property Name="ExitEntryNum" Type="int" />
+          <Property Name="DurationOfStay" Type="time" Precision="7" />
+          <Property Name="TicketNum" Type="int" />
+          <Property Name="PaymentMethod" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="CollegeDatabase">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" />
+          <Property Name="VReg" Type="nchar" MaxLength="10" />
+          <Property Name="Monday" Type="bit" />
+          <Property Name="Tuesday" Type="bit" />
+          <Property Name="Wednesday" Type="bit" />
+          <Property Name="Thursday" Type="bit" />
+          <Property Name="Friday" Type="bit" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="AccessLvl" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="ComingsAndGoings">
+          <Key>
+            <PropertyRef Name="EntryNum" />
+          </Key>
+          <Property Name="EntryNum" Type="int" Nullable="false" />
+          <Property Name="plateRead" Type="nchar" MaxLength="10" />
+          <Property Name="plateImagePath" Type="nvarchar(max)" />
+          <Property Name="imagePath" Type="nvarchar(max)" />
+          <Property Name="entryTime" Type="time" Precision="7" />
+          <Property Name="Date" Type="date" />
+        </EntityType>
+        <EntityContainer Name="PlateRecognitionDatabaseModelStoreContainer">
+          <EntitySet Name="CarParkTrack" EntityType="Self.CarParkTrack" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CollegeDatabase" EntityType="Self.CollegeDatabase" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ComingsAndGoings" EntityType="Self.ComingsAndGoings" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PlateRecognitionDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CollegeDatabase">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VReg" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Monday" Type="Boolean" />
+          <Property Name="Tuesday" Type="Boolean" />
+          <Property Name="Wednesday" Type="Boolean" />
+          <Property Name="Thursday" Type="Boolean" />
+          <Property Name="Friday" Type="Boolean" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AccessLvl" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="PlateRecognitionDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CollegeDatabases" EntityType="Self.CollegeDatabase" />
+          <EntitySet Name="CarParkTracks" EntityType="PlateRecognitionDatabaseModel.CarParkTrack" />
+          <EntitySet Name="ComingsAndGoings" EntityType="PlateRecognitionDatabaseModel.ComingsAndGoing" />
+        </EntityContainer>
+        <EntityType Name="CarParkTrack">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="CarOwnerID" Type="Int32" />
+          <Property Name="EntryEntryNum" Type="Int32" />
+          <Property Name="ExitEntryNum" Type="Int32" />
+          <Property Name="DurationOfStay" Type="Time" Precision="7" />
+          <Property Name="TicketNum" Type="Int32" />
+          <Property Name="PaymentMethod" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ComingsAndGoing">
+          <Key>
+            <PropertyRef Name="EntryNum" />
+          </Key>
+          <Property Name="EntryNum" Type="Int32" Nullable="false" />
+          <Property Name="plateRead" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="plateImagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="imagePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="entryTime" Type="Time" Precision="7" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PlateRecognitionDatabaseModelStoreContainer" CdmEntityContainer="PlateRecognitionDatabaseEntities">
+          <EntitySetMapping Name="CollegeDatabases">
+            <EntityTypeMapping TypeName="PlateRecognitionDatabaseModel.CollegeDatabase">
+              <MappingFragment StoreEntitySet="CollegeDatabase">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="VReg" ColumnName="VReg" />
+                <ScalarProperty Name="Monday" ColumnName="Monday" />
+                <ScalarProperty Name="Tuesday" ColumnName="Tuesday" />
+                <ScalarProperty Name="Wednesday" ColumnName="Wednesday" />
+                <ScalarProperty Name="Thursday" ColumnName="Thursday" />
+                <ScalarProperty Name="Friday" ColumnName="Friday" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="AccessLvl" ColumnName="AccessLvl" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CarParkTracks">
+            <EntityTypeMapping TypeName="PlateRecognitionDatabaseModel.CarParkTrack">
+              <MappingFragment StoreEntitySet="CarParkTrack">
+                <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
+                <ScalarProperty Name="TicketNum" ColumnName="TicketNum" />
+                <ScalarProperty Name="DurationOfStay" ColumnName="DurationOfStay" />
+                <ScalarProperty Name="ExitEntryNum" ColumnName="ExitEntryNum" />
+                <ScalarProperty Name="EntryEntryNum" ColumnName="EntryEntryNum" />
+                <ScalarProperty Name="CarOwnerID" ColumnName="CarOwnerID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ComingsAndGoings">
+            <EntityTypeMapping TypeName="PlateRecognitionDatabaseModel.ComingsAndGoing">
+              <MappingFragment StoreEntitySet="ComingsAndGoings">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="entryTime" ColumnName="entryTime" />
+                <ScalarProperty Name="imagePath" ColumnName="imagePath" />
+                <ScalarProperty Name="plateImagePath" ColumnName="plateImagePath" />
+                <ScalarProperty Name="plateRead" ColumnName="plateRead" />
+                <ScalarProperty Name="EntryNum" ColumnName="EntryNum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
