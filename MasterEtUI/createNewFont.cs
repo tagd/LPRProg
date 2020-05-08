@@ -46,15 +46,17 @@ namespace MasterEtUI
                 Directory.CreateDirectory(classDir);//create directory for storing data made by process
 
                 //write directorys to files so c++ knows where to look
-                System.IO.File.WriteAllText(Properties.Settings.Default.ProjectPath + "Recognition\\classPath.txt", classDir);//store above directory retrieve it and continue with same text definitions
+                Properties.Settings.Default.CPPFontPath = classDir;//store above directory retrieve it and continue with same text definitions
                 string dir = FilePathDisp.Text;//copy the directory name stored in FilePathDisp to a string
-                System.IO.File.WriteAllText(Properties.Settings.Default.ProjectPath+ "Recognition\\path.txt" , dir);
+                Properties.Settings.Default.CPPImgPath = dir;//stores path to be used by c++
+                Properties.Settings.Default.Save();
 
 
                 //Run the program to create new font
+                MultiUseFun.writeToVars("chT");
                 Process myProcess = new Process();
-                myProcess.StartInfo.FileName = Properties.Settings.Default.ProjectPath + "x64\\Debug\\CharTraining.exe";
-                myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;//hides the process that starts the program
+                myProcess.StartInfo.FileName = Properties.Settings.Default.ProjectPath + "x64\\Debug\\TrainNRecognise.exe";
+                //myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;//hides the process that starts the program
                 myProcess.Start();//start the process
                 myProcess.WaitForExit();//wait till the process has finished to continue
 

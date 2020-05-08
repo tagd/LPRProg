@@ -1,2 +1,1 @@
-Centralised filepaths
-removed some excess commenting and unnessicary features
+Consolidated, all c++ docs into one

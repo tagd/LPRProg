@@ -32,8 +32,11 @@ namespace MasterEtUI
             else if ((File.Exists(classFile)) && (File.Exists(imgFile)))
             {
                 string dir = FilePathDisp.Text;
+                Console.WriteLine(dir);
                 string finDir = dir.Replace('\\', '/');//put the directory in a form c++ can understand
-                System.IO.File.WriteAllText(Properties.Settings.Default.ProjectPath + "Recognition\\classPath.txt", finDir);
+                Properties.Settings.Default.CPPFontPath = finDir;//stores path of font to be used by c++
+                Properties.Settings.Default.Save();
+                MultiUseFun.writeToVars("Test");//todo remove
                 ChangeFontMenu ss = new ChangeFontMenu();//create new instance of 'ChangeFontMenu' form
                 Settings.changeForm(this, ss);
             }

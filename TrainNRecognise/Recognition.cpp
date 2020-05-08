@@ -1,22 +1,18 @@
-// Main.cpp
-using namespace std;
+#include "Recognition.h"//includes main.h
 
-#include "Main.h"
-using namespace cv;
-using namespace fs;
 //Methods made by me ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-int main(void) {
+int recognition(){
 	cout << "Please do not close this window";
 	std::ofstream dataOut;
 	dataOut.open("comingsAndGoings.csv");
-	string path = getPath("path.txt");
-	vector<vector<string>> fileNames = getFilename(path);
+	string path = getImgPath();
+	vector<vector<string>> fileNames = getFilename(path);//gets a 2d vector array of all image files at the path
 	vector<string> fullFile;
 	for (int x = 0; x != (fileNames.size()); ++x) {
 		fullFile.push_back(path + "/" + fileNames.at(x).at(0));
-	} 
-	
+	}
+
 	for (int x = 0; x != fullFile.size(); ++x) {
 
 		string fullPath = fullFile[x];
@@ -25,6 +21,7 @@ int main(void) {
 		if (blnKNNTrainingSuccessful == false) {                            // if KNN training was not successful
 																			// show error message
 			cout << endl << endl << "error: error: KNN traning was not successful, Please restart the program" << endl << endl;
+			system("pause");
 			return(0);                                                      // and exit program
 		}
 
@@ -33,9 +30,10 @@ int main(void) {
 		if (imgOriginalScene.empty()) {                             // if unable to open image
 			dataOut << "ImageNotFound," + fullPath + ",Error404\n";//writes erronious data to database to be delt with by user
 			_getch();                                               // may have to modify this line if not using Windows
-			
-																	//return(0);                                              // and exit program
-		}else {
+			system("pause");
+			return(0);                                              // and exit program
+		}
+		else {
 
 			vector<PossiblePlate> vectorOfPossiblePlates = detectPlatesInScene(imgOriginalScene);          // detect plates
 
@@ -76,23 +74,6 @@ int main(void) {
 	dataOut.close();
 	return(0);
 }
-
-static string getPath(string file) {
-	string path;
-	std::ifstream inFile;
-	inFile.open("D:\\A-ComSci\\coursework\\LPRProg\\V5\\Recognition\\" + file);//static filepath
-	if (!inFile) {
-		cout << "Error please restart the program";
-		exit(1);   // call system to stop
-	}
-	string x;
-	while (inFile >> x) {//loops for every string seperated by a space
-		if (path != "") { path = path + " "; };//manually re-adds spaces
-		path = path + x;
-	}
-	inFile.close();
-	return path;
-};
 
 static vector<vector<string>> getFilename(const fs::path& root) {//2084 avoid the compiler error 2084 because the string class has a getFilename function
 	vector<string> extensions{ ".bmp", ".dib", ".jpeg", ".jpg", ".jpe", ".jp2", ".pbm", ".png", ".pgm", ".ppm", ".sr", ".ras", ".tiff", ".tif" };//'strcasecmp': is not a member of 'boost::filesystem::path' Hence all formats are needed
@@ -139,7 +120,7 @@ PossibleChar::PossibleChar(vector<Point> _contour) {
 }
 
 bool loadKNNDataAndTrainKNN(void) {
-	string classPath = getPath("classPath.txt");
+	string classPath = getFontPath();
 
 	// read in training classifications ///////////////////////////////////////////////////
 
@@ -583,9 +564,9 @@ void preprocess(Mat &imgOriginal, Mat &imgGrayscale, Mat &imgThresh) {
 
 	Mat imgBlurred;
 
-GaussianBlur(imgMaxContrastGrayscale, imgBlurred, Size(5, 5), 0);          // gaussian blur reduces smooths image to reduce detail
-	//Size is the amount of pixels the blur will work on at once, higher numbers= more blurring
-																									// call adaptive threshold to get imgThresh
+	GaussianBlur(imgMaxContrastGrayscale, imgBlurred, Size(5, 5), 0);          // gaussian blur reduces smooths image to reduce detail
+		//Size is the amount of pixels the blur will work on at once, higher numbers= more blurring
+																										// call adaptive threshold to get imgThresh
 	adaptiveThreshold(imgBlurred, imgThresh, 255.0, CV_ADAPTIVE_THRESH_GAUSSIAN_C, CV_THRESH_BINARY_INV, ADAPTIVE_THRESH_BLOCK_SIZE, ADAPTIVE_THRESH_WEIGHT);
 }
 

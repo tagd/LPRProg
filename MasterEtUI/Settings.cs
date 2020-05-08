@@ -45,7 +45,7 @@ namespace MasterEtUI
         {
             this.Font = Properties.Settings.Default.dyslFont;//set font to font in setting.Default.dyslFont
             Properties.Settings.Default.SelectedFont = "dyslFont";//sets default to the selected font forsaving
-            Properties.Settings.Default.Save();//Save the selected setting to settings under default
+            Properties.Settings.Default.Save();
         }
 
         public static System.Drawing.Font getFont()

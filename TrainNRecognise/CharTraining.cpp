@@ -1,15 +1,6 @@
-// Correct.cpp
+// makes classifications from an image file//sets font path
 
-#include<opencv2/core/core.hpp>
-#include<opencv2/highgui/highgui.hpp>
-#include<opencv2/imgproc/imgproc.hpp>
-#include<opencv2/ml/ml.hpp>
-#include <fstream>
-#include <sstream>
-#include<iostream>
-#include<vector>
-
-using namespace std;
+#include "Main.h"
 
 // global variables ///////////////////////////////////////////////////////////////////////////////
 const int MIN_CONTOUR_AREA = 100;
@@ -18,24 +9,7 @@ const int RESIZED_IMAGE_WIDTH = 20;
 const int RESIZED_IMAGE_HEIGHT = 30;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-static string getPath(string file) {
-	string path;
-	ifstream inFile;
-	inFile.open("D:\\A-ComSci\\coursework\\LPRProg\\V5\\Recognition\\"+file);//static filepath
-	if (!inFile) {
-		cout << "Error please restart the program";
-		exit(1);   // call system to stop
-	}
-	string x;
-	while (inFile >> x) {//loops for every string seperated by a space
-		if (path != "") { path = path + " "; };//manually re-adds spaces
-		path = path + x;
-	}
-	inFile.close();
-	return path;
-};
-
-int main() {
+int charTraining() {
 
 	cv::Mat imgTrainingNumbers;         // input image
 	cv::Mat imgGrayscale;               // 
@@ -47,44 +21,21 @@ int main() {
 	std::vector<cv::Vec4i> v4iHierarchy;                    // declare contours hierarchy
 
 	cv::Mat matClassificationInts;      // these are our training classifications, note we will have to perform some conversions before writing to file later
-		//important								// these are our training images, due to the data types that the KNN object KNearest requires, we have to declare a single Mat,
+										// these are our training images, due to the data types that the KNN object KNearest requires, we have to declare a single Mat,
 										// then append to it as though it's a vector, also we will have to perform some conversions before writing to file later
 	cv::Mat matTrainingImagesAsFlattenedFloats;
-////////////////////////////////////////////////////////////////////////Toby
-	string classPath = getPath("classPath.txt");
-	cv::FileStorage fsClassificationsRead(classPath+"\\classifications.xml", cv::FileStorage::READ);        // open the classifications file
-
-	if (fsClassificationsRead.isOpened() == false) {                                                        // if the file was not opened successfully
-		std::cout << "error, unable to open training classifications file, exiting program\n\n";        // show error message
-		return(false);                                                                                  // and exit program
-	}
-
-	fsClassificationsRead["classifications"] >> matClassificationInts;          // read classifications section into Mat classifications variable
-	fsClassificationsRead.release();                                            // close the classifications file
-
-																			// read in training images ////////////////////////////////////////////////////////////
-
-	cv::FileStorage fsTrainingImagesRead(classPath+"\\images.xml", cv::FileStorage::READ);              // open the training images file
-
-	if (fsTrainingImagesRead.isOpened() == false) {                                                 // if the file was not opened successfully
-		std::cout << "error, unable to open training images file, exiting program\n\n";         // show error message
-		return(false);                                                                          // and exit program
-	}
-
-	fsTrainingImagesRead["images"] >> matTrainingImagesAsFlattenedFloats;           // read images section into Mat training images variable
-	fsTrainingImagesRead.release();                                                 // close the traning images file
-	//////////////////////////////////////////////////////////////////
 
 	// possible chars we are interested in are digits 0 through 9 and capital letters A through Z, put these in vector intValidChars
 	std::vector<int> intValidChars = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
 		'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
 		'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
-		'U', 'V', 'W', 'X', 'Y', 'Z'};
-	string path = getPath("path.txt");
-	imgTrainingNumbers = cv::imread(path);          // read in training numbers image
+		'U', 'V', 'W', 'X', 'Y', 'Z' };
+
+	imgTrainingNumbers = cv::imread(getImgPath());          // read in training numbers image
 
 	if (imgTrainingNumbers.empty()) {                               // if unable to open image
-		std::cout << "error: image not read from file\n\n"; system("pause");         // show error message on command line
+		std::cout << "error: image not read from file\n\n";
+		system("pause");         // show error message on command line
 		return(0);                                                  // and exit program
 	}
 
@@ -122,11 +73,11 @@ int main() {
 
 			cv::Mat matROIResized;
 			cv::resize(matROI, matROIResized, cv::Size(RESIZED_IMAGE_WIDTH, RESIZED_IMAGE_HEIGHT));     // resize image, this will be more consistent for recognition and storage
-			cv::imshow("Current Character", matROIResized);                 // show resized ROI image for reference
+			cv::imshow("matROI", matROI);                               // show ROI image for reference
 			cv::imshow("imgTrainingNumbers", imgTrainingNumbers);       // show training numbers image, this will now have red rectangles drawn on it
 
-			int intChar = cv::waitKey(0);          // get key press
-			
+			int intChar = cv::waitKey(0);           // get key press
+
 			if (intChar == 27) {        // if esc key was pressed
 				return(0);              // exit program
 			}
@@ -134,6 +85,7 @@ int main() {
 			if ((intChar >= 97) && (intChar <= 122)) {        // if intchar is lowercase
 				intChar = intChar - 32;//Convert char to uppercase
 			}
+
 
 			else if (std::find(intValidChars.begin(), intValidChars.end(), intChar) != intValidChars.end()) {     // else if the char is in the list of chars we are looking for . . .
 
@@ -153,29 +105,32 @@ int main() {
 	std::cout << "training complete\n\n";
 
 	// save classifications to file ///////////////////////////////////////////////////////
-	
+	string classPath = getFontPath();
 
-	cv::FileStorage fsClassificationsWrite(classPath+"/classifications.xml", cv::FileStorage::WRITE);           // open the classifications file//edit this
 
-	if (fsClassificationsWrite.isOpened() == false) {                                                        // if the file was not opened successfully
-		std::cout << "error, unable to open training classifications file, exiting program\n\n"; system("pause");        // show error message
+	cv::FileStorage fsClassifications(classPath + "\\classifications.xml", cv::FileStorage::WRITE);           // open the classifications file
+
+	if (fsClassifications.isOpened() == false) {                                                        // if the file was not opened successfully
+		std::cout << "error, unable to open training classifications file, exiting program\n\n";
+		system("pause");        // show error message
 		return(0);                                                                           // and exit program
 	}
 
-	fsClassificationsWrite << "classifications" << matClassificationInts;        // write classifications into classifications section of classifications file
-	fsClassificationsWrite.release();                                            // close the classifications file
+	fsClassifications << "classifications" << matClassificationInts;        // write classifications into classifications section of classifications file
+	fsClassifications.release();                                            // close the classifications file
 
 																			// save training images to file ///////////////////////////////////////////////////////
 
-	cv::FileStorage fsTrainingImagesWrite(classPath+"/images.xml", cv::FileStorage::WRITE);         // open the training images file
+	cv::FileStorage fsTrainingImages(classPath + "\\images.xml", cv::FileStorage::WRITE);         // open the training images file
 
-	if (fsTrainingImagesWrite.isOpened() == false) {                                                 // if the file was not opened successfully
+	if (fsTrainingImages.isOpened() == false) {                                                 // if the file was not opened successfully
 		std::cout << "error, unable to open training images file, exiting program\n\n"; system("pause");        // show error message
 		return(0);
 		// and exit program
 	}
 
-	fsTrainingImagesWrite << "images" << matTrainingImagesAsFlattenedFloats;         // write training images into images section of images file
-	fsTrainingImagesWrite.release();                                                 // close the training images file
+	fsTrainingImages << "images" << matTrainingImagesAsFlattenedFloats;         // write training images into images section of images file
+	fsTrainingImages.release();                                                 // close the training images file
+	system("pause");
 	return(0);
 }

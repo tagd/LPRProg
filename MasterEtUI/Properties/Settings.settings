@@ -21,10 +21,16 @@
       <Value Profile="(Default)">nonDysFont</Value>
     </Setting>
     <Setting Name="SQLConnectionStr" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\A-ComSci\coursework\LPRProg\V5\MasterEtUI\PlateRecognitionDatabase.mdf;Integrated Security=True</Value>
+      <Value Profile="(Default)">Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=G:\LPRProg\v1.2\MasterEtUI\PlateRecognitionDatabase.mdf;Integrated Security=True</Value>
     </Setting>
     <Setting Name="ProjectPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">D:\A-ComSci\coursework\LPRProg\V5\</Value>
+      <Value Profile="(Default)">G:\LPRProg\v1.2\</Value>
+    </Setting>
+    <Setting Name="CPPFontPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="CPPImgPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

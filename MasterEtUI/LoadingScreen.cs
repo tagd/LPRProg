@@ -13,9 +13,10 @@ namespace MasterEtUI
 
         private void LoadingScreen_Shown(object sender, EventArgs e)
         {
+            MultiUseFun.writeToVars("rec");
             Process myProcess = new Process();
-            myProcess.StartInfo.FileName = Properties.Settings.Default.ProjectPath + "x64\\Debug\\Recognition.exe";
-            myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;//run the process in the background
+            myProcess.StartInfo.FileName = Properties.Settings.Default.ProjectPath + "x64\\Debug\\TrainNRecognise.exe";
+            //myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;//run the process in the background
             myProcess.Start();
             myProcess.WaitForExit();
             Gallery ss = new Gallery();
