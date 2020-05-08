@@ -273,7 +273,7 @@ namespace MasterEtUI
 
         public static void WriteToFile(DataTable dataSource, string fileOutputPath)
         {
-             string seperator = ",";
+            string seperator = ",";
             StreamWriter sw = new StreamWriter(fileOutputPath, false);
             int colCount = dataSource.Columns.Count;
                 for (int i = 0; i < colCount; i++)

@@ -2,6 +2,7 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <SSDTUnitTestPath Condition="'$(SSDTUnitTestPath)' == ''">$(VsInstallRoot)\Common7\IDE\Extensions\Microsoft\SQLDB</SSDTUnitTestPath>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -14,7 +15,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -84,29 +84,11 @@
     <Compile Include="ChangeFontMenu.Designer.cs">
       <DependentUpon>ChangeFontMenu.cs</DependentUpon>
     </Compile>
-    <Compile Include="CollegeDatabase.cs">
-      <DependentUpon>ERDiagram.tt</DependentUpon>
-    </Compile>
     <Compile Include="createNewFont.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="createNewFont.Designer.cs">
       <DependentUpon>createNewFont.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ERDiagram.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ERDiagram.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ERDiagram.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ERDiagram.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ERDiagram.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ERDiagram.edmx</DependentUpon>
     </Compile>
     <Compile Include="Gallery.cs">
       <SubType>Form</SubType>
@@ -132,6 +114,7 @@
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="MultiUseFun.cs" />
     <Compile Include="newExistingFont.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -175,24 +158,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="createNewFont.resx">
       <DependentUpon>createNewFont.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Gallery.resx">
       <DependentUpon>Gallery.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoadingScreen.resx">
       <DependentUpon>LoadingScreen.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="newExistingFont.resx">
       <DependentUpon>newExistingFont.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ProcessingDatabases.resx">
       <DependentUpon>ProcessingDatabases.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
@@ -208,14 +197,9 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <EntityDeploy Include="ERDiagram.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ERDiagram.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="ERDiagram.edmx.diagram">
-      <DependentUpon>ERDiagram.edmx</DependentUpon>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
     </None>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -232,16 +216,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ERDiagram.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ERDiagram.Context.cs</LastGenOutput>
-      <DependentUpon>ERDiagram.edmx</DependentUpon>
-    </Content>
-    <Content Include="ERDiagram.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ERDiagram.edmx</DependentUpon>
-      <LastGenOutput>ERDiagram.cs</LastGenOutput>
-    </Content>
     <Content Include="PlateRecognitionDatabase.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

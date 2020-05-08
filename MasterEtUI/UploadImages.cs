@@ -40,9 +40,12 @@ namespace MasterEtUI
                     FilePathFilled.Text = "No valid images found in file, please select a different file";
                 }
                 else
-                {                        
-                        string finDir = dir.Replace('\\', '/');//makes the directory name into one that may be understood by  c++
-                        System.IO.File.WriteAllText(Properties.Settings.Default.ProjectPath + "Recognition\\path.txt", finDir);//writes path to text file to be retrieved in c++
+                {
+                    //todo replace with xml
+                    Console.WriteLine(dir);
+                        string finDir = dir.Replace('\\', '/');//makes the directory name into one that may be understood by  c++//todo remove?//todo Problem?
+                        Properties.Settings.Default.CPPImgPath = finDir;//stores path to be used by c++
+                        Properties.Settings.Default.Save();
                         LoadingScreen ss = new LoadingScreen();
                         Settings.changeForm(this, ss);
                 }

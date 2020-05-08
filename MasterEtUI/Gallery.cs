@@ -16,13 +16,13 @@ namespace MasterEtUI
         List<string> imgDate = new List<string>();
         List<string> imgDateSQL = new List<string>();
         List<string> imgTime = new List<string>();
-        int count = -1;
+        int count = 0;
 
         public Gallery()
         {
             InitializeComponent();
             using (var reader = new StreamReader(Properties.Settings.Default.ProjectPath+ "MasterEtUI\\bin\\Debug\\comingsAndGoings.csv"))
-                
+            //using (var reader = new StreamReader(Properties.Settings.Default.ProjectPath + "comingsAndGoings.csv"))
                 while (!reader.EndOfStream)
                 {//todo -check date format matches db //improve
                     var line = reader.ReadLine();
@@ -42,12 +42,12 @@ namespace MasterEtUI
 
         public void loadNextImage()//loads the next image and it's data into the gallery
         {
-            count++;
             plateLbl.Text = reading[count];//Note For Future programers:IF THERES AND ERROR OVER HERE ITS BECAUSE CLASSFICATIONS AND IMAGES HAVE BEEN MODIFIED
             plateImg.Image = Image.FromFile(plateImgPath[count]);
             fullImg.Image = Image.FromFile(image[count]);
             createDate.Text = imgDate[count];
             createTimeTxt.Text = imgTime[count];
+            count++;
         }
 
 
@@ -73,7 +73,7 @@ namespace MasterEtUI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Can not open connection !" +ex);
+                MessageBox.Show("Cannot open connection !" +ex);
             }
 
             ///////////////////////////////////////////////////
@@ -101,10 +101,13 @@ namespace MasterEtUI
             MessageBox.Show(message, caption);
             string dir = plateImgPath[count];
             string finDir = dir.Replace('\\', '/');//updates the path to a format read by c++
-            System.IO.File.WriteAllText(Properties.Settings.Default.ProjectPath + "Recognition\\path.txt", finDir);//writes the directory to a text file 
-            Process myProcess = new Process();//creates a new process
+            Properties.Settings.Default.CPPImgPath = finDir;//stores path to be used by c++
+            Properties.Settings.Default.Save();
+            MultiUseFun.writeToVars("coT");
 
-            myProcess.StartInfo.FileName = Properties.Settings.Default.ProjectPath + "x64\\Debug\\CorrectionTraining.exe";//set the file being run in the process
+
+            Process myProcess = new Process();//creates a new process
+            myProcess.StartInfo.FileName = Properties.Settings.Default.ProjectPath + "x64\\Debug\\TrainNRecognise.exe";//set the file being run in the process
             myProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;//hides the command line opening the process
             myProcess.Start();
             myProcess.WaitForExit();//wait till the process has exited before doing anything else

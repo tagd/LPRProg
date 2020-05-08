@@ -1,22 +1,15 @@
-// Main.h
+#ifndef REC
+#define REC
 
-#ifndef MY_MAIN         // used MY_MAIN for this include guard rather than MAIN just in case some compilers or environments #define MAIN already
-#define MY_MAIN
-
-#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
-#include <opencv2/ml/ml.hpp>
 #include <boost/filesystem.hpp>
 #include <string> 
-#include <iostream>
 #include <conio.h>  
 #include <iomanip>
-#include <fstream>
-#include <sstream>
 #include <Windows.h>
 
-using namespace std;//means "" is not needed for strings user in and out
+#include "Main.h"//imports everything else
+
+using namespace std;
 namespace fs = ::boost::filesystem;
 using namespace cv;
 
@@ -118,9 +111,7 @@ public:
 
 // Method declarations ////////////////////////////////////////////////////////////////////////////
 //Declaring the methods allows them to be called
-int main(void);
-
-string getPath(string file);
+int recognition();
 
 vector<vector<string>> getFilename(const fs::path& root);
 
@@ -160,4 +151,4 @@ vector<PossiblePlate> detectCharsInPlates(vector<PossiblePlate> &vectorOfPossibl
 
 PossiblePlate extractPlate(Mat &imgOriginal, vector<PossibleChar> &vectorOfMatchingChars);
 
-# endif	//MY_MAIN
+# endif

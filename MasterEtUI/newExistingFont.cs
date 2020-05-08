@@ -52,7 +52,8 @@ namespace MasterEtUI
                     Console.WriteLine("Source path does not exist!");//Tell the user if the path they selected does not exist
                 }
 
-                System.IO.File.WriteAllText(Properties.Settings.Default.ProjectPath + "Recognition\\classPath.txt", targetPath);
+                Properties.Settings.Default.CPPFontPath = targetPath;//stores path to be used by c++
+                Properties.Settings.Default.Save();
                 ChangeFontMenu ss = new ChangeFontMenu();
                 Settings.changeForm(this, ss);
             }

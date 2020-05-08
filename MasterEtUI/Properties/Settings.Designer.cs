@@ -97,8 +97,8 @@ namespace MasterEtUI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=D:\\A-ComSci\\coursework\\LPRPro" +
-            "g\\V5\\MasterEtUI\\PlateRecognitionDatabase.mdf;Integrated Security=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=G:\\LPRProg\\v1.2\\MasterEtUI\\Pl" +
+            "ateRecognitionDatabase.mdf;Integrated Security=True")]
         public string SQLConnectionStr {
             get {
                 return ((string)(this["SQLConnectionStr"]));
@@ -110,13 +110,37 @@ namespace MasterEtUI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("D:\\A-ComSci\\coursework\\LPRProg\\V5\\")]
+        [global::System.Configuration.DefaultSettingValueAttribute("G:\\LPRProg\\v1.2\\")]
         public string ProjectPath {
             get {
                 return ((string)(this["ProjectPath"]));
             }
             set {
                 this["ProjectPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CPPFontPath {
+            get {
+                return ((string)(this["CPPFontPath"]));
+            }
+            set {
+                this["CPPFontPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CPPImgPath {
+            get {
+                return ((string)(this["CPPImgPath"]));
+            }
+            set {
+                this["CPPImgPath"] = value;
             }
         }
     }
